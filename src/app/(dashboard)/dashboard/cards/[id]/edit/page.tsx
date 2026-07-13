@@ -33,6 +33,7 @@ export default async function EditCardPage({
         mode="edit"
         cardIsCustom={card.isCustom}
         userCardId={card.id}
+        selectedCardId={card.isCustom ? null : card.cardId}
         display={{
           bankName: card.displayBankName || card.bankName,
           cardName: card.displayCardName || card.cardName,

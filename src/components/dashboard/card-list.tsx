@@ -1,25 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  ArrowDown,
-  ArrowUp,
-  ChevronLeft,
-  ChevronRight,
-  CreditCard,
-  FilterX,
-  PlusCircle,
-  RotateCcw,
-} from "lucide-react";
+import { ArrowDown, ArrowUp, ChevronLeft, ChevronRight, CreditCard, FilterX, PlusCircle, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AddCardFlow } from "@/components/dashboard/add-card-flow";
 import { CardRow } from "@/components/dashboard/card-row";
 import type { BankCard } from "@/types/card";
@@ -30,13 +15,7 @@ type SortField = "approvalDate" | "cardName" | "bankName";
 type StatusFilter = "All" | "open" | "closed";
 type TypeFilter = "All" | "Personal" | "Business";
 
-export function CardList({
-  cards,
-  bankCards,
-}: {
-  cards: UserCreditCard[];
-  bankCards: BankCard[];
-}) {
+export function CardList({ cards, bankCards }: { cards: UserCreditCard[]; bankCards: BankCard[] }) {
   const [addCardOpen, setAddCardOpen] = useState(false);
   const [bankFilter, setBankFilter] = useState(ALL);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>(ALL);
@@ -96,10 +75,7 @@ export function CardList({
   }, [cards, bankFilter, statusFilter, typeFilter, sortField, sortDirection]);
 
   const totalPages = Math.ceil(filteredCards.length / pageSize) || 1;
-  const pagedCards = filteredCards.slice(
-    pageIndex * pageSize,
-    (pageIndex + 1) * pageSize,
-  );
+  const pagedCards = filteredCards.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize);
 
   const resetFilters = () => {
     setBankFilter(ALL);
@@ -125,11 +101,12 @@ export function CardList({
       <div className="app-card-header flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <div className="app-title">My Cards</div>
-          <p className="pa-h4 text-slate-300">
-            Manage and track your credit card portfolio
-          </p>
+          <p className="pa-h4 text-slate-300">Manage and track your credit card portfolio</p>
         </div>
-        <Button variant="outline" onClick={() => setAddCardOpen(true)}>
+        <Button
+          variant="outline"
+          onClick={() => setAddCardOpen(true)}
+        >
           <PlusCircle />
           Add New Card
         </Button>
@@ -151,7 +128,10 @@ export function CardList({
               <SelectContent>
                 <SelectItem value={ALL}>All Banks</SelectItem>
                 {bankOptions.map((bank) => (
-                  <SelectItem key={bank.bankName} value={bank.bankName}>
+                  <SelectItem
+                    key={bank.bankName}
+                    value={bank.bankName}
+                  >
                     {bank.displayBankName}
                   </SelectItem>
                 ))}
@@ -192,24 +172,23 @@ export function CardList({
               </SelectContent>
             </Select>
 
-            <Button variant="outline" onClick={resetFilters}>
+            <Button
+              variant="outline"
+              onClick={resetFilters}
+            >
               <RotateCcw />
               Reset
             </Button>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="hidden lg:inline pa-label mr-2">
-              Cards per page:
-            </span>
+            <span className="hidden lg:inline pa-label mr-2">Cards per page:</span>
             {[10, 20, 50].map((size) => (
               <button
                 key={size}
                 type="button"
                 className={`px-3 py-1 rounded-md text-sm font-medium transition-all duration-200 ${
-                  pageSize === size
-                    ? "bg-accent text-white shadow-md"
-                    : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                  pageSize === size ? "bg-accent text-white shadow-md" : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                 }`}
                 onClick={() => {
                   setPageSize(size);
@@ -249,11 +228,7 @@ export function CardList({
         {filteredCards.length === 0 && (
           <div className="flex flex-col items-center justify-center py-12 px-4">
             <div className="rounded-full bg-primary/10 p-4 mb-4">
-              {cards.length > 0 ? (
-                <FilterX className="size-10 text-primary" />
-              ) : (
-                <CreditCard className="size-10 text-primary" />
-              )}
+              {cards.length > 0 ? <FilterX className="size-10 text-primary" /> : <CreditCard className="size-10 text-primary" />}
             </div>
             <h3 className="text-lg font-semibold text-gray-800 mb-2">
               {cards.length > 0 ? "No cards match your filters" : "No cards yet"}
@@ -269,7 +244,10 @@ export function CardList({
                 Add Your First Card
               </Button>
             ) : (
-              <Button variant="outline" onClick={resetFilters}>
+              <Button
+                variant="outline"
+                onClick={resetFilters}
+              >
                 <RotateCcw />
                 Reset Filters
               </Button>
@@ -280,7 +258,10 @@ export function CardList({
         {filteredCards.length > 0 && (
           <div className="space-y-4 mt-2">
             {pagedCards.map((card) => (
-              <CardRow key={card.id} card={card} />
+              <CardRow
+                key={card.id}
+                card={card}
+              />
             ))}
           </div>
         )}
@@ -288,9 +269,7 @@ export function CardList({
         {filteredCards.length > 0 && (
           <div className="flex items-center justify-between pt-6 border-t border-gray-100 mt-4">
             <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-              Showing {pageIndex * pageSize + 1} -{" "}
-              {Math.min((pageIndex + 1) * pageSize, filteredCards.length)} of{" "}
-              {filteredCards.length}
+              Showing {pageIndex * pageSize + 1} - {Math.min((pageIndex + 1) * pageSize, filteredCards.length)} of {filteredCards.length}
             </span>
             <div className="flex gap-2">
               <Button
@@ -314,7 +293,10 @@ export function CardList({
         )}
       </div>
 
-      <Dialog open={addCardOpen} onOpenChange={setAddCardOpen}>
+      <Dialog
+        open={addCardOpen}
+        onOpenChange={setAddCardOpen}
+      >
         <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto p-0">
           <AddCardFlow
             bankCards={bankCards}

@@ -138,6 +138,7 @@ export function SubDialog({
           <div className="flex flex-col gap-1.5">
             <Label>Reward Type</Label>
             <Select
+              items={categories.map((c) => ({ value: c.id.toString(), label: c.displayName }))}
               value={form.watch("earningTypeId")?.toString() ?? ""}
               onValueChange={(value) =>
                 value && form.setValue("earningTypeId", Number(value), { shouldValidate: true })

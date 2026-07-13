@@ -5,13 +5,7 @@ import Fuse from "fuse.js";
 import { Briefcase, Plus, Search, User, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { BankCard } from "@/types/card";
 
 const ALL = "All";
@@ -28,13 +22,7 @@ export function CardCatalogPicker({
   /** Defaults to navigating to /dashboard. */
   onCancel?: () => void;
 }) {
-  const catalog = useMemo(
-    () =>
-      bankCards.filter(
-        (card) => card.bankName !== "Custom" && card.cardName !== "Custom",
-      ),
-    [bankCards],
-  );
+  const catalog = useMemo(() => bankCards.filter((card) => card.bankName !== "Custom" && card.cardName !== "Custom"), [bankCards]);
 
   const [search, setSearch] = useState("");
   const [bankFilter, setBankFilter] = useState(ALL);
@@ -72,7 +60,10 @@ export function CardCatalogPicker({
       threshold: 0.4,
       ignoreLocation: true,
     });
-    return fuse.search(search).map((r) => r.item).slice(0, 60);
+    return fuse
+      .search(search)
+      .map((r) => r.item)
+      .slice(0, 60);
   }, [catalog, bankFilter, typeFilter, search]);
 
   const clearFilters = () => {
@@ -92,7 +83,11 @@ export function CardCatalogPicker({
         <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
           <div className="flex justify-between items-center mb-3">
             <div className="pa-label">Filter Results</div>
-            <Button variant="ghost" size="sm" onClick={clearFilters}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={clearFilters}
+            >
               <XCircle />
               Clear All
             </Button>
@@ -114,7 +109,10 @@ export function CardCatalogPicker({
                 <SelectContent>
                   <SelectItem value={ALL}>All Banks</SelectItem>
                   {bankOptions.map((bank) => (
-                    <SelectItem key={bank.bankName} value={bank.bankName}>
+                    <SelectItem
+                      key={bank.bankName}
+                      value={bank.bankName}
+                    >
                       {bank.displayBankName}
                     </SelectItem>
                   ))}
@@ -130,9 +128,7 @@ export function CardCatalogPicker({
                     key={type || "all"}
                     type="button"
                     className={`flex-1 rounded-md text-sm font-medium transition-all ${
-                      typeFilter === type
-                        ? "bg-white shadow-sm text-primary"
-                        : "text-slate-500"
+                      typeFilter === type ? "bg-white shadow-sm text-primary" : "text-slate-500"
                     }`}
                     onClick={() => {
                       setTypeFilter(type);
@@ -168,10 +164,7 @@ export function CardCatalogPicker({
               <span className="font-medium">Can&apos;t find it? Add a custom card</span>
             </button>
             {filteredCards.map((card) => {
-              const isSelected =
-                selected != null &&
-                !selected.isCustom &&
-                selected.cardId === card.cardId;
+              const isSelected = selected != null && !selected.isCustom && selected.cardId === card.cardId;
               return (
                 <button
                   key={card.cardId}
@@ -195,12 +188,8 @@ export function CardCatalogPicker({
                     />
                   )}
                   <span className="min-w-0">
-                    <span className="block app-kicker truncate">
-                      {card.displayBankName}
-                    </span>
-                    <span className="block pa-h4 truncate">
-                      {card.displayCardName}
-                    </span>
+                    <span className="block app-kicker truncate">{card.displayBankName}</span>
+                    <span className="block pa-h4 truncate">{card.displayCardName}</span>
                   </span>
                 </button>
               );
@@ -210,15 +199,25 @@ export function CardCatalogPicker({
 
         <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 pt-4 border-t border-gray-100">
           {onCancel ? (
-            <Button variant="outline" onClick={onCancel}>
+            <Button
+              variant="outline"
+              onClick={onCancel}
+            >
               Cancel
             </Button>
           ) : (
-            <Button variant="outline" nativeButton={false} render={<a href="/dashboard" />}>
+            <Button
+              variant="outline"
+              nativeButton={false}
+              render={<a href="/dashboard" />}
+            >
               Cancel
             </Button>
           )}
-          <Button disabled={selected == null} onClick={() => selected && onContinue(selected)}>
+          <Button
+            disabled={selected == null}
+            onClick={() => selected && onContinue(selected)}
+          >
             Continue
           </Button>
         </div>
