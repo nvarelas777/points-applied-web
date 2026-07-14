@@ -1,0 +1,49 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "points-applied-web",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-04-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // Local `wrangler dev` / default values — each named environment below
+  // overrides this with its own API URL and custom domain.
+  "vars": {
+    // TODO: confirm this is still correct — nick-app's environment.prod.ts
+    // points at a Lightsail container URL, not API Gateway/Lambda as the
+    // root CLAUDE.md architecture diagram describes. Needs verifying.
+    "CREDIT_CARD_API_BASE_URL": "http://localhost:5024"
+  },
+  "env": {
+    "test": {
+      "name": "points-applied-web-test",
+      "vars": {
+        // TODO: confirm — from nick-app's environment.test.ts
+        "CREDIT_CARD_API_BASE_URL": "https://8e7fkkf6p2.execute-api.us-east-2.amazonaws.com"
+      },
+      "routes": [
+        {
+          "pattern": "app-test.pointsapplied.com",
+          "custom_domain": true
+        }
+      ]
+    },
+    "production": {
+      "name": "points-applied-web-prod",
+      "vars": {
+        // TODO: confirm — nick-app's environment.prod.ts uses a Lightsail
+        // URL (points-applied-prod.jrstnhtf7yjpt.us-east-2.cs.amazonlightsail.com),
+        // not API Gateway. Verify which is actually current before deploying.
+        "CREDIT_CARD_API_BASE_URL": "https://REPLACE_ME_PROD_API_URL"
+      },
+      "routes": [
+        {
+          "pattern": "app.pointsapplied.com",
+          "custom_domain": true
+        }
+      ]
+    }
+  }
+}

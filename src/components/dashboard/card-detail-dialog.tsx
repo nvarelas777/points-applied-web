@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { CardBenefits } from "@/components/dashboard/card-benefits";
+import { SectionTitle } from "@/components/dashboard/section-title";
 import { SubMiniCard } from "@/components/dashboard/sub-mini-card";
 import { getBankIconPath } from "@/lib/bank-icon";
 import { formatCurrency, formatDate } from "@/lib/format";
@@ -55,7 +56,7 @@ export function CardDetailDialog({
 
           <div className="px-4 sm:px-6 space-y-6 pb-2">
             <section className="bg-slate-50 rounded-2xl p-4 border border-slate-200 space-y-3">
-              <h4 className="text-center font-medium">Card Information</h4>
+              <SectionTitle>Card Information</SectionTitle>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="max-w-32 mx-auto sm:max-w-none sm:mx-0 relative h-32 sm:w-48 sm:shrink-0 rounded-xl border border-slate-100 shadow-sm overflow-hidden bg-white">
@@ -143,7 +144,7 @@ export function CardDetailDialog({
 
             {card.cardBenefits.length > 0 && (
               <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200">
-                <h4 className="text-center font-medium mb-3">Included Benefits</h4>
+                <SectionTitle className="mb-3">Included Benefits</SectionTitle>
                 <CardBenefits cardBenefits={card.cardBenefits} />
               </div>
             )}

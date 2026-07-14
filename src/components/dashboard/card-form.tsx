@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CardBenefits } from "@/components/dashboard/card-benefits";
+import { SectionTitle } from "@/components/dashboard/section-title";
 import { SubDialog, type SubResult } from "@/components/dashboard/sub-dialog";
 import { SubMiniCard } from "@/components/dashboard/sub-mini-card";
 import type { EarningTypeCategory } from "@/types/card";
@@ -242,7 +243,7 @@ export function CardForm({
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           {/* Card Information */}
           <section className="bg-slate-50 rounded-2xl p-4 space-y-4">
-            <h3 className="text-center font-medium">Card Information</h3>
+            <SectionTitle>Card Information</SectionTitle>
 
             <div className="flex flex-col md:flex-row gap-5">
               <div className="flex justify-center">
@@ -384,7 +385,7 @@ export function CardForm({
 
                 {annualFeeAmount > 0 && (
                   <div className="flex items-center gap-4">
-                    <span className="text-sm font-medium text-gray-700">
+                    <span className="text-sm font-medium text-slate-700">
                       First Year Waived?
                     </span>
                     <div className="flex gap-2">
@@ -428,7 +429,7 @@ export function CardForm({
 
           {/* Sign-up Bonuses */}
           <section className="bg-slate-50 rounded-2xl p-4 space-y-4">
-            <h3 className="text-center font-medium">Sign-up Bonuses</h3>
+            <SectionTitle>Sign-up Bonuses</SectionTitle>
 
             {subs.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -471,7 +472,7 @@ export function CardForm({
           {/* Benefits (read-only) */}
           {display?.cardBenefits && display.cardBenefits.length > 0 && (
             <section className="bg-slate-50 rounded-xl p-4">
-              <h3 className="text-center font-medium mb-3">Included Benefits</h3>
+              <SectionTitle className="mb-3">Included Benefits</SectionTitle>
               <CardBenefits cardBenefits={display.cardBenefits} />
             </section>
           )}

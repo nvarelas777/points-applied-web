@@ -188,7 +188,7 @@ export function CardList({ cards, bankCards }: { cards: UserCreditCard[]; bankCa
                 key={size}
                 type="button"
                 className={`px-3 py-1 rounded-md text-sm font-medium transition-all duration-200 ${
-                  pageSize === size ? "bg-accent text-white shadow-md" : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                  pageSize === size ? "bg-accent text-white shadow-md" : "bg-slate-50 text-slate-600 hover:bg-slate-100"
                 }`}
                 onClick={() => {
                   setPageSize(size);
@@ -230,10 +230,10 @@ export function CardList({ cards, bankCards }: { cards: UserCreditCard[]; bankCa
             <div className="rounded-full bg-primary/10 p-4 mb-4">
               {cards.length > 0 ? <FilterX className="size-10 text-primary" /> : <CreditCard className="size-10 text-primary" />}
             </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+            <h3 className="text-lg font-semibold text-slate-800 mb-2">
               {cards.length > 0 ? "No cards match your filters" : "No cards yet"}
             </h3>
-            <p className="text-sm text-gray-500 text-center mb-5 max-w-md">
+            <p className="text-sm text-slate-500 text-center mb-5 max-w-md">
               {cards.length > 0
                 ? "Try adjusting your filters to see more cards in your portfolio."
                 : "Get started by adding your first credit card to track rewards, benefits, and manage your portfolio."}
@@ -267,8 +267,8 @@ export function CardList({ cards, bankCards }: { cards: UserCreditCard[]; bankCa
         )}
 
         {filteredCards.length > 0 && (
-          <div className="flex items-center justify-between pt-6 border-t border-gray-100 mt-4">
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+          <div className="flex items-center justify-between pt-6 border-t border-slate-100 mt-4">
+            <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">
               Showing {pageIndex * pageSize + 1} - {Math.min((pageIndex + 1) * pageSize, filteredCards.length)} of {filteredCards.length}
             </span>
             <div className="flex gap-2">

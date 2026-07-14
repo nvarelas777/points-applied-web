@@ -48,6 +48,18 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Flattened, navy-tinted shadow + weight scale — replaces Tailwind's stock
+   (pure-black, higher-contrast) defaults so elevation reads as a deliberate
+   design choice rather than the framework default. */
+@theme {
+  --shadow-sm: 0 1px 2px rgba(31, 58, 77, 0.06), 0 1px 3px rgba(31, 58, 77, 0.08);
+  --shadow-md: 0 2px 6px rgba(31, 58, 77, 0.06), 0 6px 16px rgba(31, 58, 77, 0.08);
+  --shadow-lg: 0 8px 24px rgba(31, 58, 77, 0.1), 0 18px 48px rgba(31, 58, 77, 0.12);
+  --shadow-xl: 0 12px 32px rgba(31, 58, 77, 0.12), 0 24px 64px rgba(31, 58, 77, 0.14);
+  --shadow-2xl: 0 16px 40px rgba(31, 58, 77, 0.14), 0 32px 80px rgba(31, 58, 77, 0.16);
+  --font-weight-black: 800;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -73,7 +85,7 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -82,6 +94,16 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Points Applied — extra semantic tokens ported from nick-app's _tokens.scss */
+  --pa-navy: #000042;
+  --pa-bg: #eef2f6;
+  --pa-border: #e2e8ef;
+  --pa-text: #20303d;
+  --pa-text-3: #8a98a4;
+  --pa-success: #1f9d6b;
+  --pa-success-bg: #d8f3e6;
+  --pa-sky-wash: #eaf3fb;
 }
 
 .dark {
@@ -128,8 +150,27 @@
   html {
     @apply font-sans;
   }
+
+  /* Raw heading elements get the pa-h* treatment by default, so an
+     unstyled <h1>-<h4> already looks right instead of needing every
+     call site to hand-roll text- / font- weight combos. */
+  h1 {
+    @apply pa-h1;
+  }
+  h2 {
+    @apply pa-h2;
+  }
+  h3 {
+    @apply pa-h3;
+  }
+  h4 {
+    @apply pa-h4;
+  }
 }
 
+/* Typography scale — see CLAUDE.md "Typography" section. Use these
+   (as the bare element or the .pa-hN class on a non-heading tag) instead
+   of hand-rolling text- / font-weight combos for headings. */
 @utility pa-label {
   font-weight: 600;
   font-size: 12px;
@@ -139,11 +180,34 @@
   color: var(--muted-foreground);
 }
 
+@utility pa-h1 {
+  font-weight: 800;
+  font-size: clamp(2.125rem, 1.6rem + 2.2vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--color-slate-900);
+}
+
+@utility pa-h2 {
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-slate-900);
+}
+
+@utility pa-h3 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  color: var(--color-slate-900);
+}
+
 @utility pa-h4 {
   font-weight: 600;
   font-size: 16px;
   line-height: 1.3;
-  color: var(--foreground);
+  color: var(--color-slate-900);
 }
 
 @utility pa-body {
@@ -157,6 +221,15 @@
   font-weight: 700;
   font-size: 22px;
   line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+@utility pa-metric-lg {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1;
   letter-spacing: -0.01em;
   color: var(--foreground);
   font-feature-settings: "tnum" 1, "lnum" 1;
@@ -180,7 +253,7 @@
 
 @layer components {
   .app-card {
-    @apply w-full mx-auto bg-white sm:rounded-2xl shadow-xl overflow-hidden border border-gray-100;
+    @apply w-full mx-auto bg-white sm:rounded-2xl shadow-xl overflow-hidden border border-slate-100;
   }
 
   .app-card-header {

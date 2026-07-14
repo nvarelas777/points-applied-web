@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs/server";
-import { DashboardHeader } from "@/components/dashboard/dashboard-header";
+import { SiteHeader } from "@/components/site-header";
 
 export default async function DashboardLayout({
   children,
@@ -12,7 +12,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex flex-1 flex-col">
-      <DashboardHeader />
+      <SiteHeader />
       <div className="flex flex-1 flex-col p-6">{children}</div>
     </div>
   );

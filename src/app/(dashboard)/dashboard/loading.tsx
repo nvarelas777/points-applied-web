@@ -76,7 +76,7 @@ export default function DashboardLoading() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-white border border-gray-100 rounded-xl p-4"
+                className="bg-white border border-slate-100 rounded-xl p-4"
               >
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-center">
                   <div className="md:col-span-4 flex items-center gap-4">

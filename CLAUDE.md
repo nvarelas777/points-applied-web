@@ -145,6 +145,35 @@ const form = useForm<z.infer<typeof cardSchema>>({
 
 ---
 
+## Typography — use these, don't reinvent them
+
+Defined in `src/app/globals.css`. Bare heading elements (`h1`–`h4`)
+already get the right size/weight by default via `@layer base` — reach
+for the `.pa-hN` class form only when a non-heading element (e.g. a
+`<div>` or `<span>` showing a card name) needs heading-level type.
+
+| Class                                              | Role                                                |
+|-----------------------------------------------------|------------------------------------------------------|
+| `pa-h1` (or bare `<h1>`)                             | Page-level hero headline                              |
+| `pa-h2` (or bare `<h2>`)                             | Section headline                                      |
+| `pa-h3` (or bare `<h3>`)                             | Card/dialog section title (e.g. "Card Information")   |
+| `pa-h4` (or bare `<h4>`)                             | Card title / prominent inline data value              |
+| `pa-label`                                           | Small uppercase eyebrow/label text                    |
+| `pa-body`                                            | Default body copy                                     |
+| `pa-metric-sm` / `pa-metric-md` / `pa-metric-lg`     | Tabular numeric figures (stat tiles, dollar amounts)   |
+
+**Neutral color scale:** use Tailwind's `slate-*` palette for grays
+(`text-slate-600`, `border-slate-100`, etc.), never `gray-*` — the two
+read as different colors side by side, and mixing them is what makes a
+UI look assembled from mismatched pieces rather than designed.
+
+Repeated section headers (e.g. "Card Information" appearing in both a
+form and its read-only detail view) belong in a shared component like
+`SectionTitle` (`src/components/dashboard/section-title.tsx`), not
+copy-pasted with independently hand-picked classes per call site.
+
+---
+
 ## Anti-Patterns — Never Do These
 
 | Anti-pattern                                              | What to do instead                                   |
@@ -157,6 +186,8 @@ const form = useForm<z.infer<typeof cardSchema>>({
 | Hand-rolled dialog/dropdown/popover                         | `npx shadcn@latest add <component>`                     |
 | `"use client"` on a whole page for one interactive widget    | Push `"use client"` down to just that widget            |
 | Manually attaching Clerk tokens to requests                  | Use `apiFetch` in `src/lib/api.ts`                      |
+| Hand-rolled `text-*`/`font-*` combos for headings/labels     | Use the typography scale above                          |
+| Tailwind's `gray-*` palette                                  | `slate-*` (the app's canonical neutral scale)            |
 
 ---
 
