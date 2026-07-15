@@ -22,7 +22,7 @@
       },
       "routes": [
         {
-          "pattern": "app-test.pointsapplied.com",
+          "pattern": "test.pointsapplied.com",
           "custom_domain": true
         }
       ]
